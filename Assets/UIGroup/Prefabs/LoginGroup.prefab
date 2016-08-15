@@ -762,6 +762,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b62b2c6ef58314bbeb4a2cd572b955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acountGroup: {fileID: 0}
+  acountGroupPrefab: {fileID: 1000011628151712, guid: 1bde975acc8d504468c30a3ddbaf054b,
+    type: 2}
 --- !u!114 &114000013166565242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -861,6 +864,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1c64bfdee307c4dbbfdc231e7f9064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNameTextBox: {fileID: 114000010866265932}
+  passwordBox: {fileID: 114000012860380054}
 --- !u!222 &222000012250183732
 CanvasRenderer:
   m_ObjectHideFlags: 1

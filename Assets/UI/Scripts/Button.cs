@@ -20,7 +20,6 @@ public class Button : MonoBehaviour {
         newScale.y /= 2;
         transform.localScale = newScale;
         StartCoroutine(Restore());
-        SendMessage("OnClick");
 	}
 
     IEnumerator Restore()
@@ -28,5 +27,6 @@ public class Button : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
         rend.material.color = originalColor;
         transform.localScale = originalScale;
+        SendMessage("OnClick");
     }
 }
