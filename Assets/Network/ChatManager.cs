@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,7 @@ public class ChatManager : MonoBehaviour {
 
     private static User currentUser;
     private static Dictionary<string, string> headers = new Dictionary<string, string>();
+    private static int MaxCount = 9;
 
     public static void initHeaders()
     {
@@ -19,7 +21,24 @@ public class ChatManager : MonoBehaviour {
         headers.Add("Content-Type", "application/json");
     }
 
-    public static IEnumerator register(string userName, string password, int charID)
+    public static int getHashCharID(string userName)
+    {
+        int hash = 0;
+        for (int i = 0; i < userName.Length; i++)
+        {
+            char ch = userName[i];
+            hash += ch;
+        }
+        return hash % MaxCount;
+    }
+
+    public static IEnumerator register(string userName, string password, Action<string> callback)
+    {
+        int charID = getHashCharID(userName);
+        return register(userName, password, charID, callback);
+    }
+
+    public static IEnumerator register(string userName, string password, int charID, Action<string> callback)
     {
         byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"username\":\"{0}\",\"password\":\"{1}\",\"charid\":{2}}}", userName, password, charID));
         WWW www = new WWW("https://api.leancloud.cn/1.1/users", postData, headers);
@@ -29,10 +48,10 @@ public class ChatManager : MonoBehaviour {
         string userID = ret["objectId"].Value;
         currentUser = new User(userID, userName, charID);
         headers.Add("X-LC-Session", sessionToken);
-        yield return sessionToken;
+        callback(sessionToken);
     }
 
-    public static IEnumerator login(string userName, string password)
+    public static IEnumerator login(string userName, string password, Action<string> callback)
     {
         string url = string.Format("https://api.leancloud.cn/1.1/login?username={0}&password={1}", WWW.EscapeURL(userName), WWW.EscapeURL(password));
         WWW www = new WWW(url);
@@ -43,10 +62,10 @@ public class ChatManager : MonoBehaviour {
         int charID = ret["charid"].AsInt;
         currentUser = new User(userID, userName, charID);
         headers.Add("X-LC-Session", sessionToken);
-        yield return sessionToken;
+        callback(sessionToken);
     }
 
-    public static IEnumerator login(string token)
+    public static IEnumerator login(string token, Action<string> callback)
     {
         WWW www = new WWW("https://api.leancloud.cn/1.1/users/me", null, headers);
         yield return www;
@@ -55,17 +74,18 @@ public class ChatManager : MonoBehaviour {
         string userName = ret["username"].Value;
         int charID = ret["charid"].AsInt;
         currentUser = new User(userID, userName, charID);
-        yield return headers["X-LC-Session"];
+        callback(headers["X-LC-Session"]);
     }
 
-    public static IEnumerator follow(string otherID)
+    public static IEnumerator follow(string otherID, Action callback)
     {
         string url = string.Format("https://leancloud.cn/1.1/users/{0}/friendship/{1}", currentUser.userID, otherID);
         WWW www = new WWW(url, new byte[] { }, headers);
         yield return www;
+        callback();
     }
 
-    public static IEnumerator getFollowers()
+    public static IEnumerator getFollowers(Action<List<User>> callback)
     {
         string url = string.Format("https://leancloud.cn/1.1/users/{0}/followers?include=follower", currentUser.userID);
         WWW www = new WWW(url, null, headers);
@@ -80,20 +100,20 @@ public class ChatManager : MonoBehaviour {
 
             followers.Add(new User(userId, userName, charId));
         }
-        yield return followers;
+        callback(followers);
     }
 
-    public static IEnumerator createChat(string otherName)
+    public static IEnumerator createChat(string otherName, Action<string> callback)
     {
         byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"name\":\"{0}\",\"c\":\"{1}\",\"m\":[\"{1}\",\"{0}\"]}}", otherName, currentUser.userName));
         WWW www = new WWW("https://api.leancloud.cn/1.1/classes/_Conversation", postData, headers);
         yield return www;
         var ret = JSON.Parse(www.text);
         string convId = ret["objectId"].Value;
-        yield return convId;
+        callback(convId);
     }
 
-    public static IEnumerable sendMessage(string convId, string otherName, string message)
+    public static IEnumerable sendMessage(string convId, string otherName, string message, Action callback)
     {
         byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"from_peer\":\"{0}\",\"to_peers\":[\"{1}\"],\"message\":\"{{\\\"_lctype\\\":-1,\\\"_lctext\\\":\\\"{2}\\\"}}\",\"conv_id\":\"{3}\",\"transient\": false}}", currentUser.userName, otherName, message, convId));
         WWW www = new WWW("https://leancloud.cn/1.1/rtm/messages", postData, headers);
@@ -104,9 +124,10 @@ public class ChatManager : MonoBehaviour {
         foreach (KeyValuePair<string, string> entry in headers)
             request.SetRequestHeader(entry.Key, entry.Value);
         yield return request.Send();
+        callback();
     }
 
-    public static IEnumerable getChatHistory(string convId)
+    public static IEnumerable getChatHistory(string convId, Action<List<Message>> callback)
     {
         string url = string.Format("https://leancloud.cn/1.1/rtm/messages/logs?convid={0}", convId);
         WWW www = new WWW(url, null, headers);
@@ -120,10 +141,10 @@ public class ChatManager : MonoBehaviour {
             int timestamp = ret[i]["timestamp"].AsInt;
             messages.Add(new Message(convId, from, data, timestamp));
         }
-        yield return messages;
+        callback(messages);
     }
 
-    public static IEnumerable getRecent()
+    public static IEnumerable getRecent(Action<List<Conversation>> callback)
     {
         string url = string.Format("https://api.leancloud.cn/1.1/classes/_Conversation?where={{\"m\":\"{0}\"}}", currentUser.userName);
         WWW www = new WWW(url, null, headers);
@@ -143,6 +164,6 @@ public class ChatManager : MonoBehaviour {
             }
             conversations.Add(new Conversation(convId, name, creatorName, memberNames, topic));
         }
-        yield return conversations;
+        callback(conversations);
     }
 }
