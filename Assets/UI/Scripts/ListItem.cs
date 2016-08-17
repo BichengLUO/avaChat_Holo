@@ -5,6 +5,8 @@ public class ListItem : MonoBehaviour {
     public Text userNameText;
     public Text topicText;
     public Texture[] allThumbnails;
+    public User user;
+    public Conversation conv;
 
     private int _thumbID = 0;
     private string _userName = "";
@@ -12,7 +14,14 @@ public class ListItem : MonoBehaviour {
 
     public void OnSelect()
     {
-        SendMessage("OnClick");
+        if (conv != null)
+        {
+
+        }
+        else if (user != null)
+        {
+
+        }
     }
 
     public int thumbID
