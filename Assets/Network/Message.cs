@@ -5,13 +5,15 @@ using System.Text;
 
 public class Message
 {
+    public string msgId;
     public string convId;
     public string from;
     public string data;
     public int timestamp;
 
-    public Message(string cid, string fr, string dt, int tst)
+    public Message(string mid, string cid, string fr, string dt, int tst)
     {
+        msgId = mid;
         convId = cid;
         from = fr;
         data = dt;

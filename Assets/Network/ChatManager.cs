@@ -220,9 +220,16 @@ public class ChatManager : MonoBehaviour {
         }
     }
 
-    public static IEnumerator sendMessage(string convId, string otherName, string message, Action callback = null, Action<string> error = null)
+    public static IEnumerator sendMessage(Conversation conv, string message, Action callback = null, Action<string> error = null)
     {
-        byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"from_peer\":\"{0}\",\"to_peers\":[\"{1}\"],\"message\":\"{{\\\"_lctype\\\":-1,\\\"_lctext\\\":\\\"{2}\\\"}}\",\"conv_id\":\"{3}\",\"transient\": false}}", currentUser.userName, otherName, message, convId));
+        string otherName = "";
+        foreach (string name in conv.memberNames)
+        {
+            if (name != currentUser.userName)
+                otherName += "\"" + name + "\",";
+        }
+        otherName = otherName.Substring(0, otherName.Length - 1);
+        byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"from_peer\":\"{0}\",\"to_peers\":[{1}],\"message\":\"{{\\\"_lctype\\\":-1,\\\"_lctext\\\":\\\"{2}\\\"}}\",\"conv_id\":\"{3}\",\"transient\": false}}", currentUser.userName, otherName, message, conv.convId));
         WWW www = new WWW("https://leancloud.cn/1.1/rtm/messages", postData, headers);
         yield return www;
         Debug.Log(www.text);
@@ -236,7 +243,7 @@ public class ChatManager : MonoBehaviour {
         else
         {
             postData = Encoding.ASCII.GetBytes(string.Format("{{\"topic\":\"{0}\"}}", message));
-            string url = string.Format("https://api.leancloud.cn/1.1/classes/_Conversation/{0}", convId);
+            string url = string.Format("https://api.leancloud.cn/1.1/classes/_Conversation/{0}", conv.convId);
             UnityWebRequest request = UnityWebRequest.Put(url, postData);
             foreach (KeyValuePair<string, string> entry in headers)
                 request.SetRequestHeader(entry.Key, entry.Value);
@@ -246,9 +253,9 @@ public class ChatManager : MonoBehaviour {
         }
     }
 
-    public static IEnumerator getChatHistory(string convId, Action<List<Message>> callback = null, Action<string> error = null)
+    public static IEnumerator getChatHistory(Conversation conv, Action<List<Message>> callback = null, Action<string> error = null)
     {
-        string url = string.Format("https://leancloud.cn/1.1/rtm/messages/logs?convid={0}", convId);
+        string url = string.Format("https://leancloud.cn/1.1/rtm/messages/logs?convid={0}", conv.convId);
         WWW www = new WWW(url, null, headers);
         yield return www;
         Debug.Log(www.text);
@@ -264,10 +271,11 @@ public class ChatManager : MonoBehaviour {
             List<Message> messages = new List<Message>();
             for (int i = 0; i < ret.AsArray.Count; i++)
             {
+                string msgId = ret[i]["msg-id"].Value;
                 string from = ret[i]["from"].Value;
                 string data = ret[i]["data"].Value;
                 int timestamp = ret[i]["timestamp"].AsInt;
-                messages.Add(new Message(convId, from, data, timestamp));
+                messages.Add(new Message(msgId, conv.convId, from, data, timestamp));
             }
             if (callback != null)
                 callback(messages);
