@@ -7,7 +7,7 @@ public class Button : MonoBehaviour {
     private Vector3 originalScale;
 	
 	// Update is called once per frame
-	void OnSelect() {
+	public void OnSelect() {
         rend = GetComponent<Renderer>();
         originalColor = rend.material.color;
         Color newColor = originalColor;

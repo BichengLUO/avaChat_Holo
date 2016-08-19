@@ -23,6 +23,7 @@ GameObject:
   - 23: {fileID: 23000010693207196}
   - 64: {fileID: 64000011437941190}
   - 114: {fileID: 114000012112848194}
+  - 114: {fileID: 114000013517632122}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -71,9 +72,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010497901050}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 3.1559}
-  m_LocalScale: {x: 0.2572072, y: 0.05144144, z: 0.25720719}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.10175419, y: 0.17516392, z: -0.19185638}
+  m_LocalScale: {x: 0.2572072, y: 0.05144147, z: 0.2572073}
   m_Children:
   - {fileID: 224000011609561450}
   m_Father: {fileID: 0}
@@ -92,7 +93,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: bd242bd2479bbba489755801c7e481d5, type: 2}
+  - {fileID: 2100000, guid: 86220f6577ab3eb4f97437fb57c54c84, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -175,6 +176,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 10
+--- !u!114 &114000013517632122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010497901050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 484e1c9870f9df04aa304fe67884dfa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentItem: {fileID: 0}
 --- !u!114 &114000013902132594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,7 +212,7 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -207,7 +220,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Login
+  m_Text: Follow
 --- !u!222 &222000012652813450
 CanvasRenderer:
   m_ObjectHideFlags: 1

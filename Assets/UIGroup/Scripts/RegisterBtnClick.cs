@@ -7,7 +7,7 @@ public class RegisterBtnClick : MonoBehaviour {
 
     void OnClick()
     {
-        registerGroup = Instantiate(registerGroupPrefab);
         Destroy(transform.parent.gameObject);
+        registerGroup = Instantiate(registerGroupPrefab);
     }
 }

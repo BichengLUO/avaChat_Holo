@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 
-public class Bubble : MonoBehaviour {
-    public Text messageText;
+public class MessageBox : MonoBehaviour {
+    public Bubble bubble;
     private string _message;
 
     public string message
@@ -14,12 +14,7 @@ public class Bubble : MonoBehaviour {
         set
         {
             _message = value;
-            messageText.text = value;
+            bubble.message = value;
         }
-    }
-
-	void OnSelect()
-    {
-        
     }
 }

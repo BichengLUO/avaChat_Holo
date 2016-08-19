@@ -7,7 +7,7 @@ public class RegisterGroupBackBtnClick : MonoBehaviour {
 
     void OnClick()
     {
-        acountGroup = Instantiate(acountGroupPrefab);
         Destroy(transform.parent.gameObject);
+        acountGroup = Instantiate(acountGroupPrefab);
     }
 }

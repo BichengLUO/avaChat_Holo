@@ -101,8 +101,6 @@ GameObject:
   - 114: {fileID: 1274381720}
   - 114: {fileID: 1274381722}
   - 114: {fileID: 1274381723}
-  - 114: {fileID: 1274381725}
-  - 114: {fileID: 1274381724}
   - 114: {fileID: 1274381726}
   m_Layer: 0
   m_Name: Managers
@@ -165,34 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f842565b80d2342a23b359ece67620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1274381724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1274381719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aeeafcc4d02af643a12c58fcce3945f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listItemPrefab: {fileID: 1000013050819884, guid: 111d2c5e5a6cc134480f9e11ba456f76,
-    type: 2}
-  recentList: []
---- !u!114 &1274381725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1274381719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c47dcfb211d53ed4c83977e3fcf7b763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listItemPrefab: {fileID: 1000013050819884, guid: 111d2c5e5a6cc134480f9e11ba456f76,
-    type: 2}
-  friendsList: []
 --- !u!114 &1274381726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,12 +176,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accountGroupPrefab: {fileID: 1000011628151712, guid: 1bde975acc8d504468c30a3ddbaf054b,
     type: 2}
-  accountGroup: {fileID: 0}
   searchGroupPrefab: {fileID: 1000013652818646, guid: 1b979ca6aaef9014792a4c2831bacef6,
     type: 2}
-  searchGroup: {fileID: 0}
-  friendsListManager: {fileID: 0}
-  recentListManager: {fileID: 0}
+  messageBoxPrefab: {fileID: 1000013927497966, guid: 3387bc235416ebd48993b74e1d502185,
+    type: 2}
+  listItemPrefab: {fileID: 1000013050819884, guid: 111d2c5e5a6cc134480f9e11ba456f76,
+    type: 2}
+  friendsGroupPrefab: {fileID: 1000012875364168, guid: 830b95a2a8152d149a922a2f01cab996,
+    type: 2}
+  recentGroupPrefab: {fileID: 1000010351157426, guid: 5146f946ee69fd6419e365472816560e,
+    type: 2}
 --- !u!1001 &1898424528
 Prefab:
   m_ObjectHideFlags: 0

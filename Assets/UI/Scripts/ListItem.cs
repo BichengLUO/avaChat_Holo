@@ -5,22 +5,45 @@ public class ListItem : MonoBehaviour {
     public Text userNameText;
     public Text topicText;
     public Texture[] allThumbnails;
-    public User user;
-    public Conversation conv;
 
     private int _thumbID = 0;
     private string _userName = "";
     private string _topic = "";
+    private User _user;
+    private Conversation _conv;
 
     public void OnSelect()
     {
-        if (conv != null)
-        {
 
+    }
+
+    public User user
+    {
+        get
+        {
+            return _user;
         }
-        else if (user != null)
+        set
         {
+            _user = value;
+            thumbID = value.charID;
+            userName = value.userName;
+            topic = "";
+        }
+    }
 
+    public Conversation conv
+    {
+        get
+        {
+            return _conv;
+        }
+        set
+        {
+            _conv = value;
+            thumbID = value.charId;
+            userName = value.name;
+            topic = value.topic;
         }
     }
 

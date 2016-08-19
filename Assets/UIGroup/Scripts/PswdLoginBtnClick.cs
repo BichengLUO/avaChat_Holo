@@ -8,7 +8,15 @@ public class PswdLoginBtnClick : MonoBehaviour {
 
     void OnClick()
     {
-        StartCoroutine(ChatManager.login(userNameTextBox.text, passwordBox.password, (token) => success(token)));
+        StartCoroutine(ChatManager.login(userNameTextBox.text, passwordBox.password,
+            (token) => success(token),
+            (msg) => fail(msg)));
+    }
+
+    void fail(string msg)
+    {
+        loginManager = GameObject.Find("Managers").GetComponent<LoginManager>();
+        loginManager.fail(msg);
     }
 
     void success(string token)

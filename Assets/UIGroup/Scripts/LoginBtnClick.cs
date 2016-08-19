@@ -7,7 +7,7 @@ public class LoginBtnClick : MonoBehaviour {
 
 	void OnClick()
     {
-        loginGroup = Instantiate(loginGroupPrefab);
         Destroy(transform.parent.gameObject);
+        loginGroup = Instantiate(loginGroupPrefab);
     }
 }

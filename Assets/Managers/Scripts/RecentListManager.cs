@@ -7,17 +7,17 @@ public class RecentListManager : MonoBehaviour {
 
     public void SetRecent(List<Conversation> conversations)
     {
+        ClearRecent();
         for (int i = 0; i < conversations.Count; i++)
         {
             Conversation conv = conversations[i];
             GameObject listItem = Instantiate(listItemPrefab) as GameObject;
             recentList.Add(listItem);
             ListItem li = listItem.GetComponent<ListItem>();
-            li.thumbID = conv.charId;
-            li.userName = conv.name;
-            li.topic = conv.topic;
             li.conv = conv;
-            listItem.transform.position = new Vector3(0, -0.3f * i, 3);
+            listItem.transform.position = new Vector3(1.3f, -0.3f * i + 0.3f, 3.28f);
+            listItem.transform.Rotate(Vector3.forward, 30);
+            listItem.transform.parent = transform;
         }
     }
 

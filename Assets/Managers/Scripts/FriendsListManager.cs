@@ -7,21 +7,21 @@ public class FriendsListManager : MonoBehaviour {
 
     public void SetFriends(List<User> friends)
     {
+        ClearFriends();
         for (int i = 0; i < friends.Count; i++)
         {
             User friend = friends[i];
             GameObject listItem = Instantiate(listItemPrefab) as GameObject;
             friendsList.Add(listItem);
             ListItem li = listItem.GetComponent<ListItem>();
-            li.thumbID = friend.charID;
-            li.userName = friend.userName;
-            li.topic = "";
             li.user = friend;
-            listItem.transform.position = new Vector3(0, -0.3f * i, 3);
+            listItem.transform.position = new Vector3(1.3f, -0.3f * i + 0.3f, 3.28f);
+            listItem.transform.Rotate(Vector3.forward, -30);
+            listItem.transform.parent = transform;
         }
     }
 
-    public void ClearRecent()
+    public void ClearFriends()
     {
         foreach (GameObject friendItem in friendsList)
         {
