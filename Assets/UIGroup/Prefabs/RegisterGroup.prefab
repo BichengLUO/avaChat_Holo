@@ -641,6 +641,9 @@ MonoBehaviour:
   passwordBox: {fileID: 114000010502752216}
   confirmPasswordBox: {fileID: 114000013404651046}
   loginManager: {fileID: 0}
+  loadingPrefab: {fileID: 1000012829310762, guid: 945e15382cb34f8478d2261ee9ad0110,
+    type: 2}
+  loading: {fileID: 0}
 --- !u!114 &114000010497884148
 MonoBehaviour:
   m_ObjectHideFlags: 1

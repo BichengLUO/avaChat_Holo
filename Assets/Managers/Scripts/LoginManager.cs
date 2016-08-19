@@ -12,6 +12,7 @@ public class LoginManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //PlayerPrefs.DeleteAll();
         string sessionToken = PlayerPrefs.GetString("session");
         if (sessionToken == null || sessionToken == "")
             Instantiate(accountGroupPrefab);
@@ -41,13 +42,16 @@ public class LoginManager : MonoBehaviour {
 
         FriendsListManager friendsListManager = friendsGroup.GetComponent<FriendsListManager>();
         RecentListManager recentListManager = recentGroup.GetComponent<RecentListManager>();
+        friendsListManager.StartLoading();
+        recentListManager.StartLoading();
+
         StartCoroutine(ChatManager.getRecent(
             (recent) => recentListManager.SetRecent(recent),
             (msg) => fail(msg)));
         StartCoroutine(ChatManager.getFollowers(
             (friends) => friendsListManager.SetFriends(friends),
             (msg) => fail(msg)));
-        
+
         selfItem.transform.position = new Vector3(-0.62f, 0.86f, 3.15f);
         ListItem selfListItem = selfItem.GetComponent<ListItem>();
         selfListItem.user = ChatManager.currentUser;

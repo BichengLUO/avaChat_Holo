@@ -406,6 +406,9 @@ MonoBehaviour:
     type: 2}
   usersList: []
   searchTextBox: {fileID: 114000010836616792}
+  loadingPrefab: {fileID: 1000012829310762, guid: 945e15382cb34f8478d2261ee9ad0110,
+    type: 2}
+  loading: {fileID: 0}
 --- !u!114 &114000013424622266
 MonoBehaviour:
   m_ObjectHideFlags: 1

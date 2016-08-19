@@ -172,6 +172,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listItemPrefab: {fileID: 1000013050819884, guid: 111d2c5e5a6cc134480f9e11ba456f76,
     type: 2}
+  loadingPrefab: {fileID: 1000012829310762, guid: 945e15382cb34f8478d2261ee9ad0110,
+    type: 2}
+  loading: {fileID: 0}
   friendsList: []
 --- !u!222 &222000011509884330
 CanvasRenderer:

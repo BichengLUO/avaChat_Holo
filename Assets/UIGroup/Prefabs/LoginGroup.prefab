@@ -867,6 +867,9 @@ MonoBehaviour:
   userNameTextBox: {fileID: 114000010866265932}
   passwordBox: {fileID: 114000012860380054}
   loginManager: {fileID: 0}
+  loadingPrefab: {fileID: 1000012829310762, guid: 945e15382cb34f8478d2261ee9ad0110,
+    type: 2}
+  loading: {fileID: 0}
 --- !u!222 &222000012250183732
 CanvasRenderer:
   m_ObjectHideFlags: 1
