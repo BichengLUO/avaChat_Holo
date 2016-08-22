@@ -8,7 +8,7 @@ public class TextBox : MonoBehaviour {
 
     void OnSelect()
     {
-        keyboard = TouchScreenKeyboard.Open(uiText.text, TouchScreenKeyboardType.Default, false, false, false, false);
+        keyboard = TouchScreenKeyboard.Open(text, TouchScreenKeyboardType.Default, false, false, false, false);
     }
 
     void Update()

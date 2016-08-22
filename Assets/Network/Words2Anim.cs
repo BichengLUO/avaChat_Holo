@@ -21,13 +21,16 @@ public class Words2Anim : MonoBehaviour {
             string[] words = line.Split();
             for (int i = 1; i < words.Length; i++)
             {
-                if (words2Anim.ContainsKey(words[i]))
-                    words2Anim[words[i]].Add(words[0]);
-                else
+                if (words[i] != "")
                 {
-                    List<string> anims = new List<string>();
-                    anims.Add(words[0]);
-                    words2Anim.Add(words[i], anims);
+                    if (words2Anim.ContainsKey(words[i]))
+                        words2Anim[words[i]].Add(words[0]);
+                    else
+                    {
+                        List<string> anims = new List<string>();
+                        anims.Add(words[0]);
+                        words2Anim.Add(words[i], anims);
+                    }
                 }
             }
         }
