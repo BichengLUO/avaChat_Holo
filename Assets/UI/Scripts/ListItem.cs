@@ -5,6 +5,7 @@ using System;
 public class ListItem : MonoBehaviour {
     public Text userNameText;
     public Text topicText;
+    public GameObject background;
     public Texture[] allThumbnails;
     public Action<User, Conversation> callback;
 
@@ -18,6 +19,16 @@ public class ListItem : MonoBehaviour {
     {
         if (callback != null)
             callback(user, conv);
+    }
+
+    public void OnGazeEnter()
+    {
+        background.SetActive(true);
+    }
+
+    public void OnGazeLeave()
+    {
+        background.SetActive(false);
     }
 
     public User user

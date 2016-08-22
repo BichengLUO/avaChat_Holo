@@ -22,6 +22,18 @@ public class Button : MonoBehaviour {
         StartCoroutine(Restore());
 	}
 
+    public void OnGazeEnter()
+    {
+        rend = GetComponent<Renderer>();
+        rend.material.SetColor("_EmissionColor", new Color(0.2f, 0.2f, 0.2f));
+    }
+
+    public void OnGazeLeave()
+    {
+        rend = GetComponent<Renderer>();
+        rend.material.SetColor("_EmissionColor", new Color(0f, 0f, 0f));
+    }
+
     IEnumerator Restore()
     {
         yield return new WaitForSeconds(0.3f);
