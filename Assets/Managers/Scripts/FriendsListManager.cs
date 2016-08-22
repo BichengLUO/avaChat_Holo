@@ -5,7 +5,8 @@ public class FriendsListManager : MonoBehaviour {
     public GameObject listItemPrefab;
     public GameObject loadingPrefab;
     public GameObject loading;
-    public List<GameObject> friendsList;
+    public List<GameObject> friendsList = new List<GameObject>();
+    public ChatRoomManager chatRoomManager;
 
     public void StartLoading()
     {
@@ -31,6 +32,7 @@ public class FriendsListManager : MonoBehaviour {
             friendsList.Add(listItem);
             ListItem li = listItem.GetComponent<ListItem>();
             li.user = friend;
+            li.callback = (u, c) => ItemClick(u, c);
             listItem.transform.position = new Vector3(1.3f, -0.3f * i + 0.3f, 3.28f);
             listItem.transform.Rotate(Vector3.forward, -30);
             listItem.transform.parent = transform;
@@ -44,5 +46,21 @@ public class FriendsListManager : MonoBehaviour {
             Destroy(friendItem);
         }
         friendsList.Clear();
+    }
+
+    public void ItemClick(User user, Conversation conv)
+    {
+        chatRoomManager = GameObject.Find("Managers").GetComponent<ChatRoomManager>();
+
+        RecentListManager recentListManager = GameObject.Find("RecentGroup").GetComponent<RecentListManager>();
+        foreach (Conversation c in recentListManager.convs)
+        {
+            if (c.memberNames.Count == 2 && c.memberNames.Contains(user.userName))
+            {
+                chatRoomManager.SetChatRoom(c);
+                return;
+            }
+        }
+        chatRoomManager.SetChatRoom(user);
     }
 }

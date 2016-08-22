@@ -199,7 +199,7 @@ public class ChatManager : MonoBehaviour {
         }
     }
 
-    public static IEnumerator createChat(User other, Action<string> callback = null, Action<string> error = null)
+    public static IEnumerator createChat(User other, Action<Conversation> callback = null, Action<string> error = null)
     {
         byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"name\":\"{0}\",\"c\":\"{1}\",\"m\":[\"{1}\",\"{0}\"],\"charid\":{2}}}", other.userName, currentUser.userName, other.charID));
         WWW www = new WWW("https://api.leancloud.cn/1.1/classes/_Conversation", postData, headers);
@@ -215,8 +215,18 @@ public class ChatManager : MonoBehaviour {
         else
         {
             string convId = ret["objectId"].Value;
+            string name = ret["name"].Value;
+            string topic = ret["topic"].Value;
+            int charId = ret["charid"].AsInt;
+            string creatorName = ret["c"].Value;
+            List<string> memberNames = new List<string>();
+            for (int j = 0; j < ret["m"].AsArray.Count; j++)
+            {
+                memberNames.Add(ret["m"][j].Value);
+            }
+            Conversation conv = new Conversation(convId, charId, name, creatorName, memberNames, topic);
             if (callback != null)
-                callback(convId);
+                callback(conv);
         }
     }
 

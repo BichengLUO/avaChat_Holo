@@ -102,6 +102,7 @@ GameObject:
   - 114: {fileID: 1274381722}
   - 114: {fileID: 1274381723}
   - 114: {fileID: 1274381726}
+  - 114: {fileID: 1274381724}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -163,6 +164,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f842565b80d2342a23b359ece67620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1274381724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1274381719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01313309415758648bbcad5816e3fe5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatRoomPrefab: {fileID: 1000011468283918, guid: 8cb455842269fce40ac4060c226acc19,
+    type: 2}
+  chatRoom: {fileID: 0}
+  messageBoxPrefab: {fileID: 1000013927497966, guid: 3387bc235416ebd48993b74e1d502185,
+    type: 2}
 --- !u!114 &1274381726
 MonoBehaviour:
   m_ObjectHideFlags: 0
