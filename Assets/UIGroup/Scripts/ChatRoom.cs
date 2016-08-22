@@ -18,6 +18,7 @@ public class ChatRoom : MonoBehaviour {
         set
         {
             _conv = value;
+            avatarBox.charID = value.charId;
             sendBtnClick.conv = value;
         }
     }
@@ -54,18 +55,25 @@ public class ChatRoom : MonoBehaviour {
         {
             for (int i = 0; i < messages.Count; i++)
             {
-                if (messages[i].msgId != lastMessages[lastMessages.Count - 1].msgId)
+                if (messages[i].msgId != lastMessages[0].msgId)
                     newMessages.Add(messages[i]);
                 else
                     break;
             }
         }
-        for (int i = 0; i < newMessages.Count; i++)
-        {
-            bubble.message = newMessages[i].data;
-            bubble.enabled = true;
-            yield return new WaitForSeconds(0.5f);
-        }
         lastMessages = messages;
+        for (int i = newMessages.Count - 1; i >= 0; i--)
+        {
+            if (newMessages[i].from != ChatManager.currentUser.userName)
+            {
+                bubble.message = newMessages[i].data;
+                bubble.gameObject.SetActive(true);
+                string animationName = Words2Anim.convertToAnim(newMessages[i].data);
+                Animator anim = avatarBox.currentAvatar.GetComponent<Animator>();
+                if (anim != null && animationName != null)
+                    anim.CrossFade(animationName, 0.2f);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
     }
 }

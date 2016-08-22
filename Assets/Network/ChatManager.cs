@@ -9,6 +9,7 @@ using SimpleJSON;
 public class ChatManager : MonoBehaviour {
     private static string leancloudID = "EILoQAne46y25Uv01de5sfO4-gzGzoHsz";
     private static string leancloudKey = "csA7lTvQYOWmlrsrfzimzzYK";
+    private static string masterKey = "7OegbpTUJqCKWMjM9UoDvLTV";
 
     public static User currentUser;
     private static Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -201,7 +202,7 @@ public class ChatManager : MonoBehaviour {
 
     public static IEnumerator createChat(User other, Action<Conversation> callback = null, Action<string> error = null)
     {
-        byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"name\":\"{0}\",\"c\":\"{1}\",\"m\":[\"{1}\",\"{0}\"],\"charid\":{2}}}", other.userName, currentUser.userName, other.charID));
+        byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"name\":\"{1}_to_{0}\",\"c\":\"{1}\",\"m\":[\"{1}\",\"{0}\"],\"charids\":{{\"{1}\":{3},\"{0}\":{2}}}}}", other.userName, currentUser.userName, other.charID, currentUser.charID));
         WWW www = new WWW("https://api.leancloud.cn/1.1/classes/_Conversation", postData, headers);
         yield return www;
         Debug.Log(www.text);
@@ -215,16 +216,13 @@ public class ChatManager : MonoBehaviour {
         else
         {
             string convId = ret["objectId"].Value;
-            string name = ret["name"].Value;
-            string topic = ret["topic"].Value;
-            int charId = ret["charid"].AsInt;
-            string creatorName = ret["c"].Value;
+            string name = other.userName;
+            string topic = "";
+            string creatorName = currentUser.userName;
             List<string> memberNames = new List<string>();
-            for (int j = 0; j < ret["m"].AsArray.Count; j++)
-            {
-                memberNames.Add(ret["m"][j].Value);
-            }
-            Conversation conv = new Conversation(convId, charId, name, creatorName, memberNames, topic);
+            memberNames.Add(currentUser.userName);
+            memberNames.Add(other.userName);
+            Conversation conv = new Conversation(convId, other.charID, name, creatorName, memberNames, topic);
             if (callback != null)
                 callback(conv);
         }
@@ -240,7 +238,9 @@ public class ChatManager : MonoBehaviour {
         }
         otherName = otherName.Substring(0, otherName.Length - 1);
         byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"from_peer\":\"{0}\",\"to_peers\":[{1}],\"message\":\"{{\\\"_lctype\\\":-1,\\\"_lctext\\\":\\\"{2}\\\"}}\",\"conv_id\":\"{3}\",\"transient\": false}}", currentUser.userName, otherName, message, conv.convId));
-        WWW www = new WWW("https://leancloud.cn/1.1/rtm/messages", postData, headers);
+        Dictionary<string, string> headersClone = new Dictionary<string, string>(headers);
+        headersClone["X-LC-Key"] = masterKey + ",master";
+        WWW www = new WWW("https://leancloud.cn/1.1/rtm/messages", postData, headersClone);
         yield return www;
         Debug.Log(www.text);
         var ret = JSON.Parse(www.text);
@@ -284,8 +284,10 @@ public class ChatManager : MonoBehaviour {
                 string msgId = ret[i]["msg-id"].Value;
                 string from = ret[i]["from"].Value;
                 string data = ret[i]["data"].Value;
+                var dataRet = JSON.Parse(data);
+                string msg = dataRet["_lctext"].Value;
                 int timestamp = ret[i]["timestamp"].AsInt;
-                messages.Add(new Message(msgId, conv.convId, from, data, timestamp));
+                messages.Add(new Message(msgId, conv.convId, from, msg, timestamp));
             }
             if (callback != null)
                 callback(messages);
@@ -311,14 +313,22 @@ public class ChatManager : MonoBehaviour {
             for (int i = 0; i < ret["results"].AsArray.Count; i++)
             {
                 string convId = ret["results"][i]["objectId"].Value;
-                string name = ret["results"][i]["name"].Value;
+                string name = "";
                 string topic = ret["results"][i]["topic"].Value;
-                int charId = ret["results"][i]["charid"].AsInt;
                 string creatorName = ret["results"][i]["c"].Value;
                 List<string> memberNames = new List<string>();
                 for (int j = 0; j < ret["results"][i]["m"].AsArray.Count; j++)
                 {
                     memberNames.Add(ret["results"][i]["m"][j].Value);
+                }
+                int charId = 0;
+                foreach (string memberName in memberNames)
+                {
+                    if (memberName != currentUser.userName)
+                    {
+                        name = memberName;
+                        charId = ret["results"][i]["charids"][memberName].AsInt;
+                    }
                 }
                 conversations.Add(new Conversation(convId, charId, name, creatorName, memberNames, topic));
             }

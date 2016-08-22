@@ -15,7 +15,9 @@ public class AvatarBox : MonoBehaviour {
         set
         {
             _charID = value;
+            Destroy(currentAvatar);
             currentAvatar = Instantiate(allAvatars[value]);
+            currentAvatar.transform.parent = transform;
         }
     }
 }

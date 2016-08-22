@@ -6,6 +6,11 @@ public class ChatRoomManager : MonoBehaviour {
     public GameObject chatRoom;
     public GameObject messageBoxPrefab;
 
+    void Start()
+    {
+        Words2Anim.LoadVocabulary();
+    }
+
     public void SetChatRoom(User user)
     {
         StartCoroutine(ChatManager.createChat(user,
