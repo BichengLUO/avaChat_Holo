@@ -172,7 +172,7 @@ public class ChatManager : MonoBehaviour {
 
     public static IEnumerator getFollowers(Action<List<User>> callback = null, Action<string> error = null)
     {
-        string url = string.Format("https://leancloud.cn/1.1/users/{0}/followers?include=follower", currentUser.userID);
+        string url = string.Format("https://leancloud.cn/1.1/users/{0}/followers?include=follower&order=-createdAt", currentUser.userID);
         WWW www = new WWW(url, null, headers);
         yield return www;
         Debug.Log(www.text);
@@ -296,7 +296,7 @@ public class ChatManager : MonoBehaviour {
 
     public static IEnumerator getRecent(Action<List<Conversation>> callback = null, Action<string> error = null)
     {
-        string url = string.Format("https://api.leancloud.cn/1.1/classes/_Conversation?where={{\"m\":\"{0}\"}}", currentUser.userName);
+        string url = string.Format("https://api.leancloud.cn/1.1/classes/_Conversation?where={{\"m\":\"{0}\"}}&order=-updatedAt", currentUser.userName);
         WWW www = new WWW(url, null, headers);
         yield return www;
         Debug.Log(www.text);

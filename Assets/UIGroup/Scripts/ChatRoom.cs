@@ -8,6 +8,7 @@ public class ChatRoom : MonoBehaviour {
     public Bubble bubble;
     public SendBtnClick sendBtnClick;
     public List<Message> lastMessages;
+    private bool first = true;
 
     public Conversation conv
     {
@@ -62,17 +63,22 @@ public class ChatRoom : MonoBehaviour {
             }
         }
         lastMessages = messages;
-        for (int i = newMessages.Count - 1; i >= 0; i--)
+        if (first)
+            first = false;
+        else
         {
-            if (newMessages[i].from != ChatManager.currentUser.userName)
+            for (int i = newMessages.Count - 1; i >= 0; i--)
             {
-                bubble.message = newMessages[i].data;
-                bubble.gameObject.SetActive(true);
-                string animationName = Words2Anim.convertToAnim(newMessages[i].data);
-                Animator anim = avatarBox.currentAvatar.GetComponent<Animator>();
-                if (anim != null && animationName != null)
-                    anim.CrossFade(animationName, 0.2f);
-                yield return new WaitForSeconds(0.5f);
+                if (newMessages[i].from != ChatManager.currentUser.userName)
+                {
+                    bubble.message = newMessages[i].data;
+                    bubble.gameObject.SetActive(true);
+                    string animationName = Words2Anim.convertToAnim(newMessages[i].data);
+                    Animator anim = avatarBox.currentAvatar.GetComponent<Animator>();
+                    if (anim != null && animationName != null)
+                        anim.CrossFade(animationName, 0.2f);
+                    yield return new WaitForSeconds(0.5f);
+                }
             }
         }
     }
