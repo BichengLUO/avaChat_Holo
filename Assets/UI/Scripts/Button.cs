@@ -19,6 +19,7 @@ public class Button : MonoBehaviour {
         Vector3 newScale = originalScale;
         newScale.y /= 2;
         transform.localScale = newScale;
+        GetComponent<AudioSource>().Play();
         StartCoroutine(Restore());
 	}
 

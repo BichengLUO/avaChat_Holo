@@ -41,6 +41,7 @@ GameObject:
   - 64: {fileID: 64000010921424306}
   - 114: {fileID: 114000011359921638}
   - 114: {fileID: 114000012373638434}
+  - 82: {fileID: 82000013257651330}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -292,6 +293,80 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.2, y: 2, z: 1.0000004}
   m_Center: {x: 1.55, y: -2.032879e-20, z: -0.00000008940698}
+--- !u!82 &82000013257651330
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010599024576}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000010611629252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,6 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentItem: {fileID: 114000013644902326}
+  friendsListManager: {fileID: 0}
 --- !u!114 &114000012550882886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -492,6 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userNameText: {fileID: 114000012550882886}
   topicText: {fileID: 114000012859861246}
+  background: {fileID: 0}
   allThumbnails:
   - {fileID: 2800000, guid: de7c8d969a52dbd47bc7eb41d0ba9aa0, type: 3}
   - {fileID: 2800000, guid: 2a86b8e79447fd54a89e7115762383ea, type: 3}

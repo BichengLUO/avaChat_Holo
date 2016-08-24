@@ -24,6 +24,7 @@ public class ListItem : MonoBehaviour {
     public void OnGazeEnter()
     {
         background.SetActive(true);
+        GetComponent<AudioSource>().Play();
     }
 
     public void OnGazeLeave()
