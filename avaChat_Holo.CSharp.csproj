@@ -159,6 +159,7 @@
     <Compile Include="Assets\Managers\Scripts\ChatRoomManager.cs" />
     <Compile Include="Assets\Managers\Scripts\FriendsListManager.cs" />
     <Compile Include="Assets\Managers\Scripts\LoginManager.cs" />
+    <Compile Include="Assets\Managers\Scripts\ProfileManager.cs" />
     <Compile Include="Assets\Managers\Scripts\RecentListManager.cs" />
     <Compile Include="Assets\Network\ChatManager.cs" />
     <Compile Include="Assets\Network\Conversation.cs" />
@@ -173,6 +174,9 @@
     <Compile Include="Assets\UI\Scripts\PasswordBox.cs" />
     <Compile Include="Assets\UI\Scripts\TextBox.cs" />
     <Compile Include="Assets\UIGroup\Scripts\AvatarBox.cs" />
+    <Compile Include="Assets\UIGroup\Scripts\AvatarChanger.cs" />
+    <Compile Include="Assets\UIGroup\Scripts\AvatarChangerCloseBtnClick.cs" />
+    <Compile Include="Assets\UIGroup\Scripts\AvatarChangerItemClick.cs" />
     <Compile Include="Assets\UIGroup\Scripts\ChatRoom.cs" />
     <Compile Include="Assets\UIGroup\Scripts\ChatRoomCloseBtnClick.cs" />
     <Compile Include="Assets\UIGroup\Scripts\CloseBtnClick.cs" />

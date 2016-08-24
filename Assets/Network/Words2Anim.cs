@@ -69,7 +69,7 @@ public class Words2Anim : MonoBehaviour {
                 animCandidates.AddRange(entry.Value);
         }
         if (animCandidates.Count > 0)
-            return animCandidates[Random.Range(0, animCandidates.Count)];
+            return animCandidates[Random.Range(0, animCandidates.Count - 1)];
         else
             return null;
     }

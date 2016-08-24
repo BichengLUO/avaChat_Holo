@@ -197,11 +197,11 @@ MonoBehaviour:
     type: 2}
   messageBoxPrefab: {fileID: 1000013927497966, guid: 3387bc235416ebd48993b74e1d502185,
     type: 2}
-  listItemPrefab: {fileID: 1000013050819884, guid: 111d2c5e5a6cc134480f9e11ba456f76,
-    type: 2}
   friendsGroupPrefab: {fileID: 1000012875364168, guid: 830b95a2a8152d149a922a2f01cab996,
     type: 2}
   recentGroupPrefab: {fileID: 1000010351157426, guid: 5146f946ee69fd6419e365472816560e,
+    type: 2}
+  profileGroupPrefab: {fileID: 1000012659571832, guid: 89e97236dcb4ced49aabcf9ca488d1f8,
     type: 2}
 --- !u!1001 &1898424528
 Prefab:

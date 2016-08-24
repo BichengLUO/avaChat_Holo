@@ -67,6 +67,21 @@ public class SpeakBtnClick : MonoBehaviour
 
             dictationRecognizer.Start();
             isListening = true;
+            StartCoroutine(AutoStop());
+        }
+    }
+
+    IEnumerator AutoStop()
+    {
+        yield return new WaitForSeconds(5.0f);
+        if (isListening)
+        {
+            Renderer rend = GetComponent<Renderer>();
+            rend.material.color = originalColor;
+            buttonText.text = "Listen";
+
+            dictationRecognizer.Stop();
+            isListening = false;
         }
     }
 }

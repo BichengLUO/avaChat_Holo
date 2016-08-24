@@ -140,6 +140,18 @@ public class ChatManager : MonoBehaviour {
         }
     }
 
+    public static IEnumerator updateCharID(int charId, Action callback = null)
+    {
+        byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"charid\":{0}}}", charId));
+        string url = string.Format("https://api.leancloud.cn/1.1/users/{0}", currentUser.userID);
+        UnityWebRequest request = UnityWebRequest.Put(url, postData);
+        foreach (KeyValuePair<string, string> entry in headers)
+            request.SetRequestHeader(entry.Key, entry.Value);
+        yield return request.Send();
+        if (callback != null)
+            callback();
+    }
+
     public static IEnumerator searchUser(string userName, Action<List<User>> callback = null, Action<string> error = null)
     {
         string cql = string.Format("select * from _User where username like '{0}'", userName);

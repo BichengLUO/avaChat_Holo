@@ -5,10 +5,10 @@ public class LoginManager : MonoBehaviour {
     public GameObject accountGroupPrefab;
     public GameObject searchGroupPrefab;
     public GameObject messageBoxPrefab;
-    public GameObject listItemPrefab;
 
     public GameObject friendsGroupPrefab;
     public GameObject recentGroupPrefab;
+    public GameObject profileGroupPrefab;
 
     // Use this for initialization
     void Start () {
@@ -34,11 +34,11 @@ public class LoginManager : MonoBehaviour {
         GameObject friendsGroup = Instantiate(friendsGroupPrefab);
         GameObject recentGroup = Instantiate(recentGroupPrefab);
         GameObject searchGroup = Instantiate(searchGroupPrefab);
-        GameObject selfItem = Instantiate(listItemPrefab);
+        GameObject profileGroup = Instantiate(profileGroupPrefab);
         friendsGroup.name = "FriendsGroup";
         recentGroup.name = "RecentGroup";
         searchGroup.name = "SearchGroup";
-        selfItem.name = "SelfItem";
+        profileGroup.name = "ProfileGroup";
 
         FriendsListManager friendsListManager = friendsGroup.GetComponent<FriendsListManager>();
         RecentListManager recentListManager = recentGroup.GetComponent<RecentListManager>();
@@ -52,8 +52,7 @@ public class LoginManager : MonoBehaviour {
             (friends) => friendsListManager.SetFriends(friends),
             (msg) => fail(msg)));
 
-        selfItem.transform.position = new Vector3(-0.62f, 0.86f, 3.15f);
-        ListItem selfListItem = selfItem.GetComponent<ListItem>();
-        selfListItem.user = ChatManager.currentUser;
+        ProfileManager profileManager = profileGroup.GetComponent<ProfileManager>();
+        profileManager.SetUser(ChatManager.currentUser);
     }
 }
