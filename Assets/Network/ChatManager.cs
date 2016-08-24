@@ -148,6 +148,7 @@ public class ChatManager : MonoBehaviour {
         foreach (KeyValuePair<string, string> entry in headers)
             request.SetRequestHeader(entry.Key, entry.Value);
         yield return request.Send();
+        currentUser.charID = charId;
         if (callback != null)
             callback();
     }
@@ -214,7 +215,7 @@ public class ChatManager : MonoBehaviour {
 
     public static IEnumerator createChat(User other, Action<Conversation> callback = null, Action<string> error = null)
     {
-        byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"name\":\"{1}_to_{0}\",\"c\":\"{1}\",\"m\":[\"{1}\",\"{0}\"],\"charids\":{{\"{1}\":{3},\"{0}\":{2}}}}}", other.userName, currentUser.userName, other.charID, currentUser.charID));
+        byte[] postData = Encoding.ASCII.GetBytes(string.Format("{{\"name\":\"{1}_to_{0}\",\"c\":\"{1}\",\"m\":[\"{1}\",\"{0}\"]}}", other.userName, currentUser.userName, other.charID, currentUser.charID));
         WWW www = new WWW("https://api.leancloud.cn/1.1/classes/_Conversation", postData, headers);
         yield return www;
         Debug.Log(www.text);
@@ -339,7 +340,12 @@ public class ChatManager : MonoBehaviour {
                     if (memberName != currentUser.userName)
                     {
                         name = memberName;
-                        charId = ret["results"][i]["charids"][memberName].AsInt;
+                        url = string.Format("https://api.leancloud.cn/1.1/users?where={{\"username\":\"{0}\"}}", name);
+                        www = new WWW(url, null, headers);
+                        yield return www;
+                        Debug.Log(www.text);
+                        var charidret = JSON.Parse(www.text);
+                        charId = charidret["results"][0]["charid"].AsInt;
                     }
                 }
                 conversations.Add(new Conversation(convId, charId, name, creatorName, memberNames, topic));

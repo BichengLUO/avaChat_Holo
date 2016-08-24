@@ -176,6 +176,9 @@ MonoBehaviour:
     type: 2}
   loading: {fileID: 0}
   friendsList: []
+  chatRoomManager: {fileID: 0}
+  messageBoxPrefab: {fileID: 1000013927497966, guid: 3387bc235416ebd48993b74e1d502185,
+    type: 2}
 --- !u!222 &222000011509884330
 CanvasRenderer:
   m_ObjectHideFlags: 1

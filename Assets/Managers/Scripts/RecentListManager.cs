@@ -8,6 +8,15 @@ public class RecentListManager : MonoBehaviour {
     public List<GameObject> recentList = new List<GameObject>();
     public List<Conversation> convs = new List<Conversation>();
     public ChatRoomManager chatRoomManager;
+    public GameObject messageBoxPrefab;
+
+    public void Start()
+    {
+        StartLoading();
+        StartCoroutine(ChatManager.getRecent(
+            (recent) => SetRecent(recent),
+            (msg) => fail(msg)));
+    }
 
     public void StartLoading()
     {
@@ -55,5 +64,12 @@ public class RecentListManager : MonoBehaviour {
     {
         chatRoomManager = GameObject.Find("Managers").GetComponent<ChatRoomManager>();
         chatRoomManager.SetChatRoom(conv);
+    }
+
+    public void fail(string msg)
+    {
+        GameObject msgBox = Instantiate(messageBoxPrefab) as GameObject;
+        MessageBox mb = msgBox.GetComponent<MessageBox>();
+        mb.message = msg;
     }
 }

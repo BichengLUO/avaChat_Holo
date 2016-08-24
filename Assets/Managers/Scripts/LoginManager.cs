@@ -21,13 +21,6 @@ public class LoginManager : MonoBehaviour {
                 (token) => success(token),
                 (msg) => fail(msg)));
 	}
-
-    public void fail(string msg)
-    {
-        GameObject msgBox = Instantiate(messageBoxPrefab) as GameObject;
-        MessageBox mb = msgBox.GetComponent<MessageBox>();
-        mb.message = msg;
-    }
 	
     public void success(string token)
     {
@@ -39,20 +32,12 @@ public class LoginManager : MonoBehaviour {
         recentGroup.name = "RecentGroup";
         searchGroup.name = "SearchGroup";
         profileGroup.name = "ProfileGroup";
+    }
 
-        FriendsListManager friendsListManager = friendsGroup.GetComponent<FriendsListManager>();
-        RecentListManager recentListManager = recentGroup.GetComponent<RecentListManager>();
-        friendsListManager.StartLoading();
-        recentListManager.StartLoading();
-
-        StartCoroutine(ChatManager.getRecent(
-            (recent) => recentListManager.SetRecent(recent),
-            (msg) => fail(msg)));
-        StartCoroutine(ChatManager.getFollowers(
-            (friends) => friendsListManager.SetFriends(friends),
-            (msg) => fail(msg)));
-
-        ProfileManager profileManager = profileGroup.GetComponent<ProfileManager>();
-        profileManager.SetUser(ChatManager.currentUser);
+    public void fail(string msg)
+    {
+        GameObject msgBox = Instantiate(messageBoxPrefab) as GameObject;
+        MessageBox mb = msgBox.GetComponent<MessageBox>();
+        mb.message = msg;
     }
 }

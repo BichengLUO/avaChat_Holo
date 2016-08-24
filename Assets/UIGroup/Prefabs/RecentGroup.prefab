@@ -156,6 +156,8 @@ MonoBehaviour:
   loading: {fileID: 0}
   recentList: []
   chatRoomManager: {fileID: 0}
+  messageBoxPrefab: {fileID: 1000013927497966, guid: 3387bc235416ebd48993b74e1d502185,
+    type: 2}
 --- !u!114 &114000014284051686
 MonoBehaviour:
   m_ObjectHideFlags: 1

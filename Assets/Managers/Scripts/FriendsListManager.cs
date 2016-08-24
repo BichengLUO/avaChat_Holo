@@ -7,6 +7,15 @@ public class FriendsListManager : MonoBehaviour {
     public GameObject loading;
     public List<GameObject> friendsList = new List<GameObject>();
     public ChatRoomManager chatRoomManager;
+    public GameObject messageBoxPrefab;
+
+    public void Start()
+    {
+        StartLoading();
+        StartCoroutine(ChatManager.getFollowers(
+            (friends) => SetFriends(friends),
+            (msg) => fail(msg)));
+    }
 
     public void StartLoading()
     {
@@ -62,5 +71,12 @@ public class FriendsListManager : MonoBehaviour {
             }
         }
         chatRoomManager.SetChatRoom(user);
+    }
+
+    public void fail(string msg)
+    {
+        GameObject msgBox = Instantiate(messageBoxPrefab) as GameObject;
+        MessageBox mb = msgBox.GetComponent<MessageBox>();
+        mb.message = msg;
     }
 }

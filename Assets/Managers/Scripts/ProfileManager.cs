@@ -2,20 +2,19 @@
 using System.Collections;
 
 public class ProfileManager : MonoBehaviour {
-    public User user;
     public GameObject avatarChangerPrefab;
     public GameObject avatarChanger;
     public ListItem selfListItem;
 
-    public void SetUser(User user)
+    void Start()
     {
-        selfListItem.user = user;
+        selfListItem.user = ChatManager.currentUser;
         selfListItem.callback = (u, c) =>
         {
             if (avatarChanger == null)
             {
                 avatarChanger = Instantiate(avatarChangerPrefab);
-                avatarChanger.GetComponent<AvatarChanger>().charId = user.charID;
+                avatarChanger.GetComponent<AvatarChanger>().charId = ChatManager.currentUser.charID;
             }
         };
     }

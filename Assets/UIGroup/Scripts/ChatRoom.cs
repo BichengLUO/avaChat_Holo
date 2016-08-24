@@ -76,7 +76,7 @@ public class ChatRoom : MonoBehaviour {
                     string animationName = Words2Anim.convertToAnim(newMessages[i].data);
                     Animator anim = avatarBox.currentAvatar.GetComponent<Animator>();
                     if (anim != null && animationName != null)
-                        anim.CrossFade(animationName, 0.2f);
+                        anim.CrossFade(animationName, 0);
                     yield return new WaitForSeconds(0.5f);
                 }
             }
