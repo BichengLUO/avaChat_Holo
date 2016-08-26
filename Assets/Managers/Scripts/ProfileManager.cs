@@ -18,4 +18,9 @@ public class ProfileManager : MonoBehaviour {
             }
         };
     }
+
+    public void Refresh()
+    {
+        selfListItem.user = ChatManager.currentUser;
+    }
 }

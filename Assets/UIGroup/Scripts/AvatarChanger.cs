@@ -19,7 +19,13 @@ public class AvatarChanger : MonoBehaviour {
             avatarSelectorPos.x = avatars[value].transform.position.x;
             avatarSelector.transform.position = avatarSelectorPos;
 
-            StartCoroutine(ChatManager.updateCharID(value));
+            StartCoroutine(ChatManager.updateCharID(value, () => success()));
         }
+    }
+
+    void success()
+    {
+        ProfileManager profileManager = GameObject.Find("ProfileGroup").GetComponent<ProfileManager>();
+        profileManager.Refresh();
     }
 }
